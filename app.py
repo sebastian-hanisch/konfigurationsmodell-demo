@@ -152,11 +152,11 @@ if "series_done" in st.session_state:
         st.caption(f"Potenzgesetz γ = {num(C.CHUNGLU_GAMMA, 1)}, kleinster Grad {C.CHUNGLU_KMIN}, {C.CHUNGLU_HUBS} größte Hubs; der Kantentausch läuft nur bei graphischer Gradfolge "
                    f"({chung[0]['graphical']} von {chung[0]['plans']} Plänen ohne Obergrenze).")
     with tab4:
-        st.markdown("**Mischzeit:** Der Kantentausch startet hier bei einem Netz mit sehr hoher Transitivität und vergisst es nach einigen Vorschlägen je Kante.")
+        st.markdown("**Mischzeit:** Der Kantentausch startet hier bei einem Netz mit sehr hoher Transitivität und vergisst dessen Transitivität nach einigen Vorschlägen je Kante (gemessen an diesem einen Startnetz).")
         st.plotly_chart(build_mixing(mixing), width="stretch", key="mixing_chart")
         kind, text = verdict_mixing(mixing)
         getattr(st, kind)(text)
-        st.caption(f"Träge Kette: jeder Vorschlag zählt, auch abgelehnte. Wer nur gelungene Tausche zählt, bekommt eine leicht verzerrte Verteilung (Test `test_counting_only_accepted_switches_gives_a_measurably_non_uniform_chain`).")
+        st.caption(f"Träge Kette: jeder Vorschlag zählt, auch abgelehnte. Wer nur gelungene Tausche zählt, bekommt eine verzerrte Verteilung (bei sieben Knoten messbar, Test `test_counting_only_accepted_switches_gives_a_measurably_non_uniform_chain`).")
     st.caption(f"Rechenzeit dieser Sitzung: {num(st.session_state['series_done'], 1)} s (beim ersten Mal; danach liegt das Ergebnis im Zwischenspeicher).")
 
 st.markdown("---")
@@ -202,7 +202,7 @@ $$p_{ij} = \min\!\left(1, \frac{w_i w_j}{\sum_k w_k}\right)$$
 
 vor; wo $w_i w_j > \sum_k w_k$, wird gekappt, und die erwarteten Grade werden unterschritten.
 
-**Strukturelle Obergrenze.** Bei $k_{\max} \approx \sqrt{n \langle k \rangle}$ ist $w_i w_j / \sum_k w_k \le 1$ für alle Paare, das Kappen entfällt.
+**Strukturelle Obergrenze.** Bei $k_{\max} \approx \sqrt{n \langle k \rangle}$ ist $w_i w_j / \sum_k w_k$ im Erwartungswert höchstens 1, das Kappen entfällt weitgehend. Die tatsächliche Gradsumme einer Ziehung schwankt, deshalb kappt Chung–Lu auch dann gelegentlich ein Hub-Paar.
 
 **Kantentausch.** Aus zwei Kanten $(a, b)$ und $(c, d)$ werden $(a, d)$ und $(c, b)$, sofern weder eine Schleife noch eine Mehrfachkante entsteht; abgelehnte Vorschläge zählen als Schritt der Kette. Die so erhaltene träge Kette hat die Gleichverteilung als Grenzverteilung.
 

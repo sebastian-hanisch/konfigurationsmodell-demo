@@ -65,7 +65,7 @@ def test_chung_lu_verdict_with_and_without_the_edge_switch_reference():
     structural = {"cutoff": "structural", "kmax": 96, "capped": 0, "chunglu_ratio": 1.0014, "chunglu_hubhub": 21, "swap_ratio": 1.0, "swap_hubhub": 18, "graphical": 5, "plans": 5}
     kind, text = ev.verdict_chung_lu([free, structural])
     assert kind == "info" and "84 % ihres erwarteten Grades (Kantentausch: 100 %)" in text and "36 von 45 Hub-Paaren" in text
-    assert "44 Kanten, beim Kantentausch 36" in text and "größter Grad 96" in text and "100 % bei 0 gekappten Paaren" in text
+    assert "44 Kanten, beim Kantentausch 36" in text and "größter erlaubter Grad 96" in text and "100 % bei 0 gekappten Paaren" in text
     none = dict(free, swap_ratio=None, swap_hubhub=None)
     kind, text = ev.verdict_chung_lu([none, structural])
     assert "Kantentausch:" not in text and "beim Kantentausch" not in text

@@ -209,9 +209,9 @@ def verdict_molloy(rows: list[dict]) -> tuple[str, str]:
 def verdict_defects(rows: list[dict]) -> tuple[str, str]:
     """Experiment Schleifen und Mehrfachkanten: steilstes und flachstes Potenzgesetz, ohne und mit Obergrenze."""
     flat, steep = rows[0], rows[-1]
-    return "info", (f"Beim flachsten Potenzgesetz (γ = {num(flat['gamma'], 1)}) sind {num(flat['free'] * 100, 1)} % der Kanten Schleifen oder Mehrfachkanten, mit struktureller Obergrenze "
-                    f"(größter Grad {num(flat['structural_kmax'], 0)} statt {num(flat['free_kmax'], 0)}) nur {num(flat['structural'] * 100, 1)} %; beim steilsten (γ = {num(steep['gamma'], 1)}) sind es "
-                    f"{num(steep['free'] * 100, 1)} % und {num(steep['structural'] * 100, 1)} %.")
+    return "info", (f"Beim flachsten Potenzgesetz (γ = {num(flat['gamma'], 1)}) sind im Median der festen Pläne {num(flat['free'] * 100, 1)} % der Kanten Schleifen oder Mehrfachkanten, mit struktureller Obergrenze "
+                    f"(größter erlaubter Grad {num(flat['structural_kmax'], 0)} statt {num(flat['free_kmax'], 0)}) nur {num(flat['structural'] * 100, 1)} %; beim steilsten (γ = {num(steep['gamma'], 1)}) sind es "
+                    f"{num(steep['free'] * 100, 1)} % und {num(steep['structural'] * 100, 1)} %. Ohne Obergrenze streut der Anteil von Netz zu Netz stark, weil er an den wenigen größten Graden hängt.")
 
 
 def verdict_chung_lu(rows: list[dict]) -> tuple[str, str]:
@@ -220,8 +220,8 @@ def verdict_chung_lu(rows: list[dict]) -> tuple[str, str]:
     sw = "" if free["swap_ratio"] is None else f" (Kantentausch: {num(free['swap_ratio'] * 100, 0)} %)"
     hh = "" if free["swap_hubhub"] is None else f" Zwischen den größten Hubs liegen bei Chung–Lu im Median {num(free['chunglu_hubhub'], 0)} Kanten, beim Kantentausch {num(free['swap_hubhub'], 0)}."
     return "info", (f"Ohne Obergrenze erreichen die größten Hubs bei Chung–Lu im Median {num(free['chunglu_ratio'] * 100, 0)} % ihres erwarteten Grades{sw}; {num(free['capped'], 0)} von "
-                    f"{C.CHUNGLU_HUBS * (C.CHUNGLU_HUBS - 1) // 2} Hub-Paaren werden gekappt.{hh} Mit struktureller Obergrenze (größter Grad {num(structural['kmax'], 0)}) sind es "
-                    f"{num(structural['chunglu_ratio'] * 100, 0)} % bei {num(structural['capped'], 0)} gekappten Paaren.")
+                    f"{C.CHUNGLU_HUBS * (C.CHUNGLU_HUBS - 1) // 2} Hub-Paaren werden gekappt.{hh} Mit struktureller Obergrenze (größter erlaubter Grad {num(structural['kmax'], 0)}) sind es "
+                    f"{num(structural['chunglu_ratio'] * 100, 0)} % bei {num(structural['capped'], 0)} gekappten Paaren (Median der Pläne; einzelne Ziehungen kappen auch hier gelegentlich ein Paar).")
 
 
 def verdict_mixing(res: dict) -> tuple[str, str]:
